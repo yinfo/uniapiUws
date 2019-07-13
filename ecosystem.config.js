@@ -7,14 +7,15 @@ module.exports = {
         args: 'one two',
         instances: 1,
         autorestart: true,
-        watch: false,
+        watch: true,
         max_memory_restart: '1G',
         env: {
             NODE_ENV: 'development',
             connectionStringPostgres:'postgres://yqidbxly:fufOn7hGH_sFZqcXz-johT8zIDzUgCdr@rogue.db.elephantsql.com:5432/yqidbxly'
         },
         env_production: {
-            NODE_ENV: 'production'
+            NODE_ENV: 'production',
+            connectionStringPostgres:'postgres://yqidbxly:fufOn7hGH_sFZqcXz-johT8zIDzUgCdr@rogue.db.elephantsql.com:5432/yqidbxly'
         }
     }],
 
