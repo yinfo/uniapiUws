@@ -11,7 +11,7 @@ const app = uWS./*SSL*/App({
 }).post('/*', (res, req) => {
 }).get('*', (res, req) => {
 
-    res.end('uniapiUws work!')
+    res.end('uniapiUws work!!!')
     // res.status(200).json({
     //     type: 'valid-response',
     //     message: 'uniapiUws work!',
