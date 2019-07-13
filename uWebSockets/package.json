@@ -1,0 +1,29 @@
+{
+  "_from": "https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+  "_id": "uWebSockets.js@15.11.0",
+  "_inBundle": false,
+  "_integrity": "sha512-Ip6wXx3Yk1JrgH841ed5jx8kB8XEI/S1P+aRVGUuCMfbd2l+5Y49X5a3a1h75v25TcPJUlkCNip8hm4fBIG8HA==",
+  "_location": "/uWebSockets.js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "remote",
+    "raw": "uWebSockets.js@https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+    "name": "uWebSockets.js",
+    "escapedName": "uWebSockets.js",
+    "rawSpec": "https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+    "saveSpec": "https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+    "fetchSpec": "https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+  "_shasum": "692ad7a65863fb9f39d17a657ba13764a92f1016",
+  "_spec": "uWebSockets.js@https://github.com/uNetworking/uWebSockets.js/archive/v15.11.0.tar.gz",
+  "_where": "D:\\__OpeNode\\consensus_uws",
+  "bundleDependencies": false,
+  "deprecated": false,
+  "main": "uws.js",
+  "name": "uWebSockets.js",
+  "version": "15.11.0"
+}
