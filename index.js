@@ -11,7 +11,7 @@ const app = uWS./*SSL*/App({
 }).post('/*', (res, req) => {
 }).get('*', (res, req) => {
 
-    res.end(process.env.NODE_ENV)
+    res.end(process.env.connectionStringPostgres)
     // res.end('uniapiUws work!!!')
 
 
