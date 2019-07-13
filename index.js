@@ -1,3 +1,7 @@
+const controller = require('./main_modules/http-ws-controller')
+global.$storage = require('./main_modules/$storage')
+$storage.onStart()
+
 /* Simple example of getting JSON from a POST */
 const port = 9001
 // const portHttp = 80
@@ -8,35 +12,27 @@ const app = uWS./*SSL*/App({
     key_file_name: 'misc/key.pem',
     cert_file_name: 'misc/cert.pem',
     passphrase: '1234'
-}).post('/*', (res, req) => {
+}).post('/uniapi', (res, req) => {
+
+    /* Note that you cannot read from req after returning from here */
+    let url = req.getUrl();
+
+    /* Read the body until done or error */
+    readJson(res, (command) => {
+        controller.onApiMessageHttp(res, command)
+        // console.log('Posted to ' + url + ': ')
+        // console.log(obj);
+        // if(!obj.login){
+        //     res.end('Thanks for this json!')
+        // } else {
+        //     res.end(obj.login)
+        // }
+    }, () => {
+        /* Request was prematurely aborted or invalid or missing, stop reading */
+        console.log('Invalid JSON or no data at all!');
+    });
 }).get('*', (res, req) => {
-
-    res.end(process.env.connectionStringPostgres)
-    // res.end('uniapiUws work!!!')
-
-
-    // res.status(200).json({
-    //     type: 'valid-response',
-    //     message: 'uniapiUws work!',
-    // })
-
-    // /* Note that you cannot read from req after returning from here */
-    // let url = req.getUrl();
-    //
-    // /* Read the body until done or error */
-    // readJson(res, (obj) => {
-    //     console.log('Posted to ' + url + ': ')
-    //     console.log(obj);
-    //     if(!obj.login){
-    //         res.end('Thanks for this json!')
-    //     } else {
-    //         res.end(obj.login)
-    //     }
-    //
-    // }, () => {
-    //     /* Request was prematurely aborted or invalid or missing, stop reading */
-    //     console.log('Invalid JSON or no data at all!');
-    // });
+    res.end('Usw server work!')
 }).listen(port, (token) => {
     if (token) {
         console.log('Listening to port ' + port);
