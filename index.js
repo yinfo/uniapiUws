@@ -1,6 +1,6 @@
 /* Simple example of getting JSON from a POST */
-const port = 9000
-const portHttp = 80
+const port = 9001
+// const portHttp = 80
 const uWS = require('./uWebSockets/uws')
 
 
@@ -9,6 +9,14 @@ const app = uWS./*SSL*/App({
     cert_file_name: 'misc/cert.pem',
     passphrase: '1234'
 }).post('/*', (res, req) => {
+}).get('*', (res, req) => {
+
+    res.end('uniapiUws work!')
+    // res.status(200).json({
+    //     type: 'valid-response',
+    //     message: 'uniapiUws work!',
+    // })
+
     // /* Note that you cannot read from req after returning from here */
     // let url = req.getUrl();
     //
@@ -34,15 +42,15 @@ const app = uWS./*SSL*/App({
     }
 });
 
-const http = require('http')
-
-const requestHandler = (request, response) => {
-    response.end('Hello Node.js Server!')
-}
-const server = http.createServer(requestHandler)
-server.listen(portHttp, (err) => {
-    console.error(err)
-})
+// const http = require('http')
+//
+// const requestHandler = (request, response) => {
+//     response.end('Hello Node.js Server!')
+// }
+// const server = http.createServer(requestHandler)
+// server.listen(portHttp, (err) => {
+//     console.error(err)
+// })
 
 
 /* Helper function for reading a posted JSON body */

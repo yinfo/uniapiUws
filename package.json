@@ -5,11 +5,7 @@
   "main": "index.js",
   "scripts": {
     "debug": "nodemon --inspect=9237 index",
-    "start": "node index.js",
-    "deploy": "openode deploy",
-    "openode sync-n-reload": "openode sync-n-reload",
-    "sync": "openode sync",
-    "reload": "openode reload"
+    "start": "node index.js"
   },
   "author": "Igor Yarovenko",
   "license": "",
