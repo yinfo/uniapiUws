@@ -157,7 +157,7 @@ module.exports.getPostgresString = () => {
     if(this.testMode()){
         return 'postgres://postgres:y5724189@89.223.88.69:5432/postgres'
     } else {
-        return process.name
+        return process.env.postgresString
     }
 
 
