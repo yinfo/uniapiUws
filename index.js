@@ -18,7 +18,7 @@ const uWSapp = uWS.App({
     passphrase: '1234'
 }).get('/info', (res, req) => {
     res.end($storage.getPostgresString())
-}).post('/uniapi', (res, req) => {
+}).post('/api', (res, req) => {
     /* Note that you cannot read from req after returning from here */
     // let url = req.getUrl()
 

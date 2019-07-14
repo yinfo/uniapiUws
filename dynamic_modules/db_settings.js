@@ -50,7 +50,15 @@ module.exports = {
             throw overrideError(e)
         }
     },
-
+    getAll: async function()  {
+        try {
+            return await pool.query(`SELECT * FROM settings;`, null)
+            // return await pool.query(`SELECT * FROM ${table}`, null)
+        } catch (e) {
+            console.error(e.message)
+            throw overrideError(e)
+        }
+    },
 
 }
 

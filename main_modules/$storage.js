@@ -5,6 +5,7 @@ const fs = require('fs')
 // const pgDB = require('../models/pgDB')
 // const SocketSession = require('../models/SocketSession')
 
+
 const $systemSettings = {
     testMode: null,
     sessions: {},
@@ -85,9 +86,7 @@ module.exports.getSystemInfo = async () => {
     //     pingPongCount: $systemSettings.pingPongCount
     // }
 }
-module.exports.getConnectionStringPostgres = function () {
-    return process.env.connectionStringPostgres
-}
+
 module.exports.testMode = function () {
     if($systemSettings.testMode === false){
         return false
@@ -155,7 +154,7 @@ module.exports.checkDatabaseSessionId = async (sessionId) => {
 
 module.exports.getPostgresString = () => {
     if(this.testMode()){
-        return 'postgres://postgres:y5724189@89.223.88.69:5432/postgres'
+        return require('../local_keys').postgresString
     } else {
         return process.env.postgresString
     }
