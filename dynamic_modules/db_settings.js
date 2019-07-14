@@ -1,7 +1,7 @@
 const {Pool} = require('pg')
 const dbErrors = require('../main_modules/db_errors')
 // const {connectionStringPostgres:connectionString} = require('../config/keys')
-const connectionString = 'postgres://postgres:y5724189@89.223.88.69:5432/postgres'
+const connectionString = $storage.getPostgresString()
 const pool = new Pool({connectionString})
 // const uniqid = require('uniqid')
 
