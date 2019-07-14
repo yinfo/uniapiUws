@@ -3,7 +3,6 @@ const dbErrors = require('../main_modules/db_errors')
 // const {connectionStringPostgres:connectionString} = require('../config/keys')
 const connectionString = $storage.getPostgresString()
 const pool = new Pool({connectionString})
-// const uniqid = require('uniqid')
 
 module.exports = {
 //-------------------------------------------------------------------------------
