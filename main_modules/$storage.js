@@ -159,8 +159,4 @@ module.exports.getPostgresString = () => {
     } else {
         return process.env.postgresString
     }
-
-
-
-
 }
