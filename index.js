@@ -16,7 +16,7 @@ const uWSapp = uWS.App({
     key_file_name: 'misc/key.pem',
     cert_file_name: 'misc/cert.pem',
     passphrase: '1234'
-}).get('*', (res, req) => {
+}).get('/info', (res, req) => {
     res.end($storage.getPostgresString())
 }).post('/uniapi', (res, req) => {
     /* Note that you cannot read from req after returning from here */
@@ -72,13 +72,13 @@ const uWSapp = uWS.App({
         // }
     },
     message: (ws, message, isBinary) => {
-        // try {
-        //     const strMessage = ab2str(message)
-        //     const command = JSON.parse(strMessage)
-        //     controller.onApiMessageWS(ws, command)
-        // } catch (e) {
-        //     controller.sendErrorWS(ws, e.message)
-        // }
+        try {
+            const strMessage = ab2str(message)
+            const command = JSON.parse(strMessage)
+            controller.onApiMessageWS(ws, command)
+        } catch (e) {
+            controller.sendErrorWS(ws, e.message)
+        }
     },
     drain: (ws) => {
         console.log('WebSocket backpressure: ' + ws.getBufferedAmount());
@@ -88,7 +88,8 @@ const uWSapp = uWS.App({
         // console.log('WebSocket closed code = ' + code);
     }
 
-
+}).any('/*', (res, req) => {
+    res.end('Nothing to see here!');
 }).listen(port, (token) => {
     if (token) {
         console.log('Listening to port ' + port);
