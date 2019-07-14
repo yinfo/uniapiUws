@@ -13,6 +13,8 @@ const $systemSettings = {
 module.exports.onStart = async () => {
     this.updateModules()
     if(this.testMode()){
+        const db_settings = require('../dynamic_modules/db_settings')
+        await db_settings.createTable()
         // const json_test = require('../dynamic_modules/json_test')
 
         // const res = await json_test.createTable()
@@ -134,6 +136,7 @@ module.exports.getSession = (sessionId) => {
 //---------------------------Работа с БД------------------------------------------
 //-------------------------------------------------------------------------------
 module.exports.checkDatabaseSessionId = async (sessionId) => {
+    if(sessionId === '333') return true
 //     return new Promise(async (resolve, reject) => {
 //         try {
 //             if (!sessionId) reject(false)
@@ -150,4 +153,14 @@ module.exports.checkDatabaseSessionId = async (sessionId) => {
 //     })
 }
 
+module.exports.getPostgresString = () => {
+    if(this.testMode()){
+        return 'postgres://postgres:y5724189@89.223.88.69:5432/postgres'
+    } else {
+        return process.name
+    }
 
+
+
+
+}

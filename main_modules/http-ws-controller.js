@@ -75,15 +75,15 @@ module.exports.sendErrorWS = function (ws, error, message) {
 module.exports.sendErrorHttp = function (res, error, message) {
     try {
         if (typeof error === 'string') {
-            res.status(200).json({
+            res.end(JSON.stringify({
                 type: 'error',
                 errorId: error,
                 message,
-            })
+            }))
             return true
         } else if (typeof message === 'object') {
             error.type = 'error'
-            res.status(200).json(error)
+            res.end(JSON.stringify(error))
             return true
         } else {
             return false
