@@ -17,7 +17,7 @@ const uWSapp = uWS.App({
     cert_file_name: 'misc/cert.pem',
     passphrase: '1234'
 }).get('/info', (res, req) => {
-    res.end($storage.getPostgresString())
+    res.end($storage.getSystemInfo())
 }).post('/api', (res, req) => {
     /* Note that you cannot read from req after returning from here */
     // let url = req.getUrl()
@@ -27,7 +27,7 @@ const uWSapp = uWS.App({
         controller.onApiMessageHttp(res, command)
     }, () => {
         /* Request was prematurely aborted or invalid or missing, stop reading */
-        console.log('Invalid JSON or no data at all!')
+        console.error('Invalid JSON or no data at all!')
     })
 }).ws('/*', {
     /* Options */
@@ -77,8 +77,9 @@ const uWSapp = uWS.App({
             const command = JSON.parse(strMessage)
             controller.onApiMessageWS(ws, command)
         } catch (e) {
-            controller.sendErrorWS(ws, e.message)
+            controller.sendErrorWS(ws, e)
         }
+
     },
     drain: (ws) => {
         console.log('WebSocket backpressure: ' + ws.getBufferedAmount());
@@ -111,22 +112,14 @@ function readJson(res, cb, err) {
                 try {
                     json = JSON.parse(Buffer.concat([buffer, chunk]))
                 } catch (e) {
-                    /* res.close calls onAborted */
-                    res.writeStatus('400')
-                    res.writeHeader('error', e.message)
-                    res.end()
-                    return
+                    return controller.sendErrorHttp(res, e)
                 }
                 cb(json)
             } else {
                 try {
                     json = JSON.parse(chunk)
                 } catch (e) {
-                    /* res.close calls onAborted */
-                    res.writeStatus('400')
-                    res.writeHeader('error', e.message)
-                    res.end()
-                    return
+                    return controller.sendErrorHttp(res, e)
                 }
                 cb(json)
             }

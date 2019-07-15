@@ -62,8 +62,8 @@ module.exports.sendErrorWS = function (ws, error, message) {
             }))
             return true
         } else if (typeof error === 'object') {
-            if (message) error.msg = message
-            ws.send(JSON.stringify(error))
+            if(!error.errorId) error.errorId = 'unrecognized_error'
+            ws.send(JSON.stringify(error, Object.getOwnPropertyNames(error)))
             return true
         } else {
             return false
@@ -84,10 +84,12 @@ module.exports.sendErrorHttp = function (res, error, message) {
                 message,
             }))
             return true
-        } else if (typeof message === 'object') {
+        } else if (typeof error === 'object') {
             error.type = 'error'
+            if(!error.errorId) error.errorId = 'unrecognized_error'
             res.writeStatus('400')
-            res.end(JSON.stringify(error))
+            // res.end(JSON.stringify(error))
+            res.end(JSON.stringify(error, Object.getOwnPropertyNames(error)))
             return true
         } else {
             return false
