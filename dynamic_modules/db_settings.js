@@ -1,6 +1,6 @@
+const table = 'settings'
 const {Pool} = require('pg')
 const dbErrors = require('../main_modules/db_errors')
-// const {connectionStringPostgres:connectionString} = require('../config/keys')
 const connectionString = $storage.getPostgresString()
 const pool = new Pool({connectionString})
 
@@ -9,7 +9,6 @@ module.exports = {
 //--------------------------- test_json ---------------------------------------
 //-------------------------------------------------------------------------------
     createTable: async function () {
-
         const createTableText = `
             CREATE EXTENSION IF NOT EXISTS "pgcrypto";
             
@@ -20,18 +19,6 @@ module.exports = {
             );
             `
         await pool.query(createTableText)
-
-        // const newUser = {email: '1cuslugi.ru@gmail.com'}
-        // create a settings
-        // await pool.query('INSERT INTO settings(name,data) VALUES($1,$2)', ['usersAdmin',newUser])
-        // const {rows} = await pool.query('SELECT * FROM settings')
-        // return rows.length > 0 ? rows[0] : null
-        // try {
-        //     const res = await pool.query('SELECT * FROM test_json', null)
-        //     return res.rows
-        // } catch (e) {
-        //     throw overrideError(e)
-        // }
     },
 
     findOneOrCreate: async function ({name, data}) {

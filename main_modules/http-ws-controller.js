@@ -31,6 +31,7 @@ module.exports.sendSuccessWS = function (ws, message) {
 module.exports.sendSuccessHttp = function (res, message) {
     try {
         if (typeof message === 'string') {
+            res.writeStatus('200')
             res.end(JSON.stringify({
                 type: 'valid-response',
                 message,
@@ -40,6 +41,7 @@ module.exports.sendSuccessHttp = function (res, message) {
             if (!message.hasOwnProperty('type')) {
                 message.type = 'valid-response'
             }
+            res.writeStatus('200')
             res.end(JSON.stringify(message))
             return true
         } else {
@@ -75,6 +77,7 @@ module.exports.sendErrorWS = function (ws, error, message) {
 module.exports.sendErrorHttp = function (res, error, message) {
     try {
         if (typeof error === 'string') {
+            res.writeStatus('400')
             res.end(JSON.stringify({
                 type: 'error',
                 errorId: error,
@@ -83,6 +86,7 @@ module.exports.sendErrorHttp = function (res, error, message) {
             return true
         } else if (typeof message === 'object') {
             error.type = 'error'
+            res.writeStatus('400')
             res.end(JSON.stringify(error))
             return true
         } else {

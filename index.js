@@ -27,7 +27,7 @@ const uWSapp = uWS.App({
         controller.onApiMessageHttp(res, command)
     }, () => {
         /* Request was prematurely aborted or invalid or missing, stop reading */
-        console.log('Invalid JSON or no data at all!');
+        console.log('Invalid JSON or no data at all!')
     })
 }).ws('/*', {
     /* Options */
@@ -89,54 +89,58 @@ const uWSapp = uWS.App({
     }
 
 }).any('/*', (res, req) => {
-    res.end('Nothing to see here!');
+    res.end('Nothing to see here!')
 }).listen(port, (token) => {
     if (token) {
-        console.log('Listening to port ' + port);
+        console.log('Listening to port ' + port)
     } else {
-        console.log('Failed to listen to port ' + port);
+        console.log('Failed to listen to port ' + port)
     }
 });
 
 
 /* Helper function for reading a posted JSON body */
 function readJson(res, cb, err) {
-    let buffer;
+    let buffer
     /* Register data cb */
     res.onData((ab, isLast) => {
-        let chunk = Buffer.from(ab);
+        let chunk = Buffer.from(ab)
         if (isLast) {
-            let json;
+            let json
             if (buffer) {
                 try {
-                    json = JSON.parse(Buffer.concat([buffer, chunk]));
+                    json = JSON.parse(Buffer.concat([buffer, chunk]))
                 } catch (e) {
                     /* res.close calls onAborted */
-                    res.close();
-                    return;
+                    res.writeStatus('400')
+                    res.writeHeader('error', e.message)
+                    res.end()
+                    return
                 }
-                cb(json);
+                cb(json)
             } else {
                 try {
-                    json = JSON.parse(chunk);
+                    json = JSON.parse(chunk)
                 } catch (e) {
                     /* res.close calls onAborted */
-                    res.close();
-                    return;
+                    res.writeStatus('400')
+                    res.writeHeader('error', e.message)
+                    res.end()
+                    return
                 }
-                cb(json);
+                cb(json)
             }
         } else {
             if (buffer) {
-                buffer = Buffer.concat([buffer, chunk]);
+                buffer = Buffer.concat([buffer, chunk])
             } else {
-                buffer = Buffer.concat([chunk]);
+                buffer = Buffer.concat([chunk])
             }
         }
-    });
+    })
 
     /* Register error cb */
-    res.onAborted(err);
+    res.onAborted(err)
 }
 
 function ab2str(arrayBuffer) {
