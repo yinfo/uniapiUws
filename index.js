@@ -113,7 +113,7 @@ function readJson(res, cb, err) {
                 } catch (e) {
                     /* res.close calls onAborted */
                     res.writeStatus('400')
-                    res.writeHeader('error', e.message)
+                    res.writeHeader('errorId', e.message)
                     res.end()
                     return
                 }
@@ -124,7 +124,7 @@ function readJson(res, cb, err) {
                 } catch (e) {
                     /* res.close calls onAborted */
                     res.writeStatus('400')
-                    res.writeHeader('error', e.message)
+                    res.writeHeader('errorId', e.message)
                     res.end()
                     return
                 }
