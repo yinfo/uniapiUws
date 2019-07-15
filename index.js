@@ -21,7 +21,6 @@ const uWSapp = uWS.App({
 }).post('/api', (res, req) => {
     /* Note that you cannot read from req after returning from here */
     // let url = req.getUrl()
-
     /* Read the body until done or error */
     readJson(res, (command) => {
         controller.onApiMessageHttp(res, command)
