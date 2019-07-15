@@ -17,7 +17,7 @@ const uWSapp = uWS.App({
     cert_file_name: 'misc/cert.pem',
     passphrase: '1234'
 }).get('/info', (res, req) => {
-    res.end($storage.getSystemInfo())
+    res.end('info')
 }).post('/api', (res, req) => {
     /* Note that you cannot read from req after returning from here */
     // let url = req.getUrl()
